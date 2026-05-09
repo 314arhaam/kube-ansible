@@ -12,7 +12,7 @@
         dest: /root/kubeadmcnf.yaml
 
     - name: Init cluster | Initiate cluster on node groups['kube_master'][0]
-      shell: kubeadm init --config=/root/kubeadmcnf.yaml
+      shell: kubeadm init --config=/root/kubeadmcnf.yaml --ignore-preflight-errors=all
       register: kubeadm_init
       # Retry is because upload config sometimes fails
       until: kubeadm_init is succeeded or "field is immutable" in kubeadm_init.stderr
