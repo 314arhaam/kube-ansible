@@ -2,3 +2,6 @@
 kubeconfig
 roles/join_master/files/join-command
 roles/join_worker/files/join-command
+
+puller.sh
+pusher.sh
