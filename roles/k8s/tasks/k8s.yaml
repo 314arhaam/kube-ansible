@@ -154,11 +154,11 @@
   apt:
     name: "{{ item }}"
     state: present
+    allow_downgrade: yes
   loop:
     - kubeadm={{ k8s_version }}-1.1
     - kubelet={{ k8s_version }}-1.1
     - kubectl={{ k8s_version }}-1.1
-  allow_downgrade: yes
 
 - name: Hold Kubernetes packages
   dpkg_selections:
