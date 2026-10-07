@@ -41,8 +41,13 @@ runs:
     - name: SSH global config
       shell: bash
       run: |
+        mkdir -p ~/.ssh
+        touch ~/.ssh/config
+
         cat >> ~/.ssh/config <<'EOF'
         Host *
             StrictHostKeyChecking accept-new
         EOF
-        sudo chmod 600 ~/.ssh/config
+
+        chmod 700 ~/.ssh
+        chmod 600 ~/.ssh/config
