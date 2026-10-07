@@ -1,0 +1,41 @@
+name: Provision k8s - kube-ansible
+
+on:
+  workflow_dispatch:
+
+jobs:
+  servers:
+    strategy:
+      matrix:
+        node-name:
+          - k8s-test-jumpbox
+          - k8s-test-master1
+          - k8s-test-master2
+          - k8s-test-master3
+          - k8s-test-worker1
+          - k8s-test-worker2
+          - k8s-test-worker3
+          - lb1-test
+          - lb2-test
+
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          ref: ${{ inputs.branch }}
+
+      - name: Setup node
+        uses: ./.github/actions/setup-node-with-tailscale
+        with:
+          node-name: ${{ matrix.node-name }}
+          ts-oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+          ts-oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
+
+      - name: Sleep
+        run: |
+          while true; do
+            sleep 2
+            echo "$(date)"
+          done
